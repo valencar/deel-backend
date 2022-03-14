@@ -20,8 +20,8 @@ Profile.init(
       type: Sequelize.STRING,
       allowNull: false
     },
-    balance:{
-      type:Sequelize.DECIMAL(12,2)
+    balance: {
+      type: Sequelize.DECIMAL(12,2)
     },
     type: {
       type: Sequelize.ENUM('client', 'contractor')
@@ -40,8 +40,8 @@ Contract.init(
       type: Sequelize.TEXT,
       allowNull: false
     },
-    status:{
-      type: Sequelize.ENUM('new','in_progress','terminated')
+    status: {
+      type: Sequelize.ENUM('new', 'in_progress', 'terminated')
     }
   },
   {
@@ -57,15 +57,16 @@ Job.init(
       type: Sequelize.TEXT,
       allowNull: false
     },
-    price:{
+    price: {
       type: Sequelize.DECIMAL(12,2),
       allowNull: false
     },
     paid: {
       type: Sequelize.BOOLEAN,
-      default:false
+      default: false,
+      allowNull: false
     },
-    paymentDate:{
+    paymentDate: {
       type: Sequelize.DATE
     }
   },
@@ -75,9 +76,9 @@ Job.init(
   }
 );
 
-Profile.hasMany(Contract, {as :'Contractor',foreignKey:'ContractorId'})
+Profile.hasMany(Contract, {as: 'Contractor', foreignKey: 'ContractorId'})
 Contract.belongsTo(Profile, {as: 'Contractor'})
-Profile.hasMany(Contract, {as : 'Client', foreignKey:'ClientId'})
+Profile.hasMany(Contract, {as: 'Client', foreignKey: 'ClientId'})
 Contract.belongsTo(Profile, {as: 'Client'})
 Contract.hasMany(Job)
 Job.belongsTo(Contract)
