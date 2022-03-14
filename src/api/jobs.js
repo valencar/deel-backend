@@ -58,7 +58,7 @@ router.post('/jobs/:id/pay', getProfile, async (req, res) => {
       await sequelize.transaction((async (t) => {
         await req.profile.update({ balance: req.profile.balance - job.price  }, { transaction: t })
         await contractor.update({ balance: contractor.balance + job.price }, { transaction: t })
-        await job.update({ paid: true }, { transaction: t })
+        await job.update({ paid: true, paymentDate: new Date() }, { transaction: t })
       }))
     } else {
       return res.status(400).send({ message: 'Not enough balance to pay for this job' })
